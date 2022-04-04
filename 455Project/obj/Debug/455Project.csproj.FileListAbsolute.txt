@@ -1,0 +1,10 @@
+C:\Users\noahb\Source\Repos\455-Project\455Project\bin\Debug\455Project.exe.config
+C:\Users\noahb\Source\Repos\455-Project\455Project\bin\Debug\455Project.exe
+C:\Users\noahb\Source\Repos\455-Project\455Project\bin\Debug\455Project.pdb
+C:\Users\noahb\Source\Repos\455-Project\455Project\obj\Debug\455Project.csprojAssemblyReference.cache
+C:\Users\noahb\Source\Repos\455-Project\455Project\obj\Debug\_455Project.Form1.resources
+C:\Users\noahb\Source\Repos\455-Project\455Project\obj\Debug\_455Project.Properties.Resources.resources
+C:\Users\noahb\Source\Repos\455-Project\455Project\obj\Debug\455Project.csproj.GenerateResource.cache
+C:\Users\noahb\Source\Repos\455-Project\455Project\obj\Debug\455Project.csproj.CoreCompileInputs.cache
+C:\Users\noahb\Source\Repos\455-Project\455Project\obj\Debug\455Project.exe
+C:\Users\noahb\Source\Repos\455-Project\455Project\obj\Debug\455Project.pdb
