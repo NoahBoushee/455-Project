@@ -64,10 +64,16 @@ namespace _455Project
             {
                 //GO TO THE STAFF VIEW
                 label3.Text = "Logged in as Staff";
+                Form3 f3 = new Form3();
+                f3.Show();
+                this.Hide();
                 return;
             }
             //GO TO THE PATIENT VIEW
             label3.Text = "Logged in as Patient";
+            Form2 f2 = new Form2();
+            f2.Show();
+            this.Hide();
 
         }
 

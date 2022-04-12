@@ -17,3 +17,5 @@ C:\Users\noahb\Source\Repos\455-Project\455Project\bin\Debug\EntityFramework.Sql
 C:\Users\noahb\Source\Repos\455-Project\455Project\bin\Debug\System.Data.SQLite.xml
 C:\Users\noahb\Source\Repos\455-Project\455Project\obj\Debug\_455Project.LogIn.resources
 C:\Users\noahb\Source\Repos\455-Project\455Project\obj\Debug\455Project.csproj.CopyComplete
+C:\Users\noahb\source\repos\455-Project\455Project\obj\Debug\_455Project.Form2.resources
+C:\Users\noahb\source\repos\455-Project\455Project\obj\Debug\_455Project.Form3.resources
