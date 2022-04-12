@@ -30,23 +30,44 @@ namespace _455Project
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!(String.IsNullOrEmpty(textBox1.Text) || String.IsNullOrEmpty(textBox2.Text)))
+            if ((String.IsNullOrEmpty(textBox1.Text) || String.IsNullOrEmpty(textBox2.Text)))
             {
                 label3.Text = "Please fill form out completly";
+                return;
             }
+            label3.Text = "";
             // connect to databas
             //cmd object to write sql
             //adapter to read db data
-            SQLiteConnection connection = new SQLiteConnection("DATABASE PATH");
+            SQLiteConnection connection = new SQLiteConnection("Data Source=455DB.db");
+            connection.Open();
             //CHECK IF data is in sql
-            string sqlCommand = "SELECT EXISTS(SELECT 1 FROM Patient WHERE userName = '" + textBox1.Text + "' AND password = '" + textBox2.Text + "');";
-            SQLiteCommand cmd = new SQLiteCommand(sqlCommand, connection);
+            SQLiteCommand cmd = new SQLiteCommand(connection);
+            if (radioButton1.Checked) {
+                cmd.CommandText = "SELECT EXISTS(SELECT 1 FROM StaffLogOn WHERE Username=@p1 AND Password=@p2);";
+                
+            }
+            else {
+                cmd.CommandText = "SELECT EXISTS(SELECT 1 FROM PatientLogOn WHERE Username=@p1 AND Password=@p2);";
+            }
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add(new SQLiteParameter("@p1", textBox1.Text));
+            cmd.Parameters.Add(new SQLiteParameter("@p2", textBox2.Text));
+
             string result = cmd.ExecuteScalar().ToString();
+            connection.Close();
             if (!(result.ToUpper() == "TRUE"))
             {
                 label3.Text = "Invalid usernam or password";
             }
-            //GO TO THE NEXT FORM
+            if (radioButton1.Checked)
+            {
+                //GO TO THE STAFF VIEW
+                label3.Text = "Logged in as Staff";
+                return;
+            }
+            //GO TO THE PATIENT VIEW
+            label3.Text = "Logged in as Patient";
 
         }
 
@@ -56,6 +77,11 @@ namespace _455Project
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
