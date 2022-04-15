@@ -166,11 +166,74 @@ namespace _455Project
             cmd2.Parameters.Add(new SQLiteParameter("@ID", ID));
             cmd2.ExecuteNonQuery();
 
-            label6.Text = "Scheduled appointment successfully";
+            label6.Text = "Schedule appointment successfully";
             comboBox1.Text = null;
             comboBox2.Text = null;
             textBox1.Text = "";
             
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            label11.Text = "";
+            SQLiteCommand cmd2 = new SQLiteCommand(connection);
+            cmd2.CommandText = "SELECT ID FROM PatientLogOn where Username = @name AND Password = @pass;";
+            cmd2.CommandType = CommandType.Text;
+            cmd2.Parameters.Add(new SQLiteParameter("@name", patientName));
+            cmd2.Parameters.Add(new SQLiteParameter("@pass", patientPassword));
+            SQLiteDataReader reader2 = cmd2.ExecuteReader();
+            reader2.Read();
+            string patientID = reader2["ID"].ToString();
+            reader2.Close();
+            string date = monthCalendar1.SelectionRange.Start.ToString().Replace("/", "-");
+            int temp = date.IndexOf(" ");
+            date = date.Substring(0, temp);
+            cmd2.CommandText = "SELECT COUNT(*) FROM AppointmentInfo WHERE PID=@p1 AND Date=@p2;";
+            cmd2.CommandType = CommandType.Text;
+            cmd2.Parameters.Add(new SQLiteParameter("@p1", patientID));
+            cmd2.Parameters.Add(new SQLiteParameter("@p2", date));
+            int result = 0;
+            result = Convert.ToInt32(cmd2.ExecuteScalar());
+
+            if (result == 0)
+            {
+                label11.Text = "No appointment for selected day.";
+                return;
+            }
+            cmd2 = new SQLiteCommand(connection);
+            cmd2.CommandText = "SELECT ID FROM AppointmentInfo where PID = @name AND Date = @pass;";
+            cmd2.CommandType = CommandType.Text;
+            cmd2.Parameters.Add(new SQLiteParameter("@name", patientID));
+            cmd2.Parameters.Add(new SQLiteParameter("@pass", date));
+            reader2 = cmd2.ExecuteReader();
+            reader2.Read();
+            string ID = reader2["ID"].ToString();
+            reader2.Close();
+
+            cmd2 = new SQLiteCommand(connection);
+            cmd2.CommandText = "DELETE FROM Appointment where PID = @name AND ID = @pass;";
+            cmd2.CommandType = CommandType.Text;
+            cmd2.Parameters.Add(new SQLiteParameter("@name", patientID));
+            cmd2.Parameters.Add(new SQLiteParameter("@pass", ID));
+            cmd2.ExecuteNonQuery();
+
+            cmd2 = new SQLiteCommand(connection);
+            cmd2.CommandText = "DELETE FROM AppointmentInfo where ID = @pass;";
+            cmd2.CommandType = CommandType.Text;
+            cmd2.Parameters.Add(new SQLiteParameter("@pass", ID));
+            cmd2.ExecuteNonQuery();
+            label11.Text = "Canceled successfully.";
+
         }
     }
 }
