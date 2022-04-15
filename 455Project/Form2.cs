@@ -93,6 +93,33 @@ namespace _455Project
             //connection.Close();
         }
 
+        private string getStaff(string name)
+        {
+            SQLiteCommand cmd2 = new SQLiteCommand(connection);
+            cmd2.CommandText = "SELECT ID FROM Staff where Name = @name;";
+            cmd2.CommandType = CommandType.Text;
+            cmd2.Parameters.Add(new SQLiteParameter("@name", name));
+            SQLiteDataReader reader2 = cmd2.ExecuteReader();
+            reader2.Read();
+            string providerID = reader2["ID"].ToString();
+            reader2.Close();
+            return providerID;
+        }
+
+        private string getPatient()
+        {
+            SQLiteCommand cmd2 = new SQLiteCommand(connection);
+            cmd2.CommandText = "SELECT ID FROM PatientLogOn where Username = @name AND Password = @pass;";
+            cmd2.CommandType = CommandType.Text;
+            cmd2.Parameters.Add(new SQLiteParameter("@name", patientName));
+            cmd2.Parameters.Add(new SQLiteParameter("@pass", patientPassword));
+            SQLiteDataReader reader2 = cmd2.ExecuteReader();
+            reader2.Read();
+            string patientID = reader2["ID"].ToString();
+            reader2.Close();
+            return patientID;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem == null || comboBox2.SelectedItem == null)
@@ -102,23 +129,10 @@ namespace _455Project
             }
             //GET STAFF ID
             SQLiteCommand cmd2 = new SQLiteCommand(connection);
-            cmd2.CommandText = "SELECT ID FROM Staff where Name = @name;";
-            cmd2.CommandType = CommandType.Text;
-            cmd2.Parameters.Add(new SQLiteParameter("@name", comboBox2.SelectedItem));
-            SQLiteDataReader reader2 = cmd2.ExecuteReader();
-            reader2.Read();
-            string providerID = reader2["ID"].ToString();
-            reader2.Close();
+
+            string providerID = getStaff(comboBox2.Text);
             //GET PATIENT ID
-            cmd2 = new SQLiteCommand(connection);
-            cmd2.CommandText = "SELECT ID FROM PatientLogOn where Username = @name AND Password = @pass;";
-            cmd2.CommandType = CommandType.Text;
-            cmd2.Parameters.Add(new SQLiteParameter("@name", patientName));
-            cmd2.Parameters.Add(new SQLiteParameter("@pass", patientPassword));
-            reader2 = cmd2.ExecuteReader();
-            reader2.Read();
-            string patientID = reader2["ID"].ToString();
-            reader2.Close();
+            string patientID = getPatient();
             //INSERT INTO APPOINTMENT INFO
             string date = monthCalendar1.SelectionRange.Start.ToString().Replace("/", "-");
             int temp = date.IndexOf(" ");
@@ -154,17 +168,10 @@ namespace _455Project
             cmd2.CommandType = CommandType.Text;
             cmd2.Parameters.Add(new SQLiteParameter("@name", patientID));
             cmd2.Parameters.Add(new SQLiteParameter("@pass", date));
-            reader2 = cmd2.ExecuteReader();
+            SQLiteDataReader reader2 = cmd2.ExecuteReader();
             reader2.Read();
             string ID = reader2["ID"].ToString();
             reader2.Close();
-            //INSERT INTO APPOINTMENT
-            cmd2.CommandText = "INSERT INTO Appointment (ID, PID) " +
-                "VALUES(@ID, @PID)";
-            cmd2.CommandType = CommandType.Text;
-            cmd2.Parameters.Add(new SQLiteParameter("@PID", patientID));
-            cmd2.Parameters.Add(new SQLiteParameter("@ID", ID));
-            cmd2.ExecuteNonQuery();
 
             label6.Text = "Schedule appointment successfully";
             comboBox1.Text = null;
@@ -187,14 +194,7 @@ namespace _455Project
         {
             label11.Text = "";
             SQLiteCommand cmd2 = new SQLiteCommand(connection);
-            cmd2.CommandText = "SELECT ID FROM PatientLogOn where Username = @name AND Password = @pass;";
-            cmd2.CommandType = CommandType.Text;
-            cmd2.Parameters.Add(new SQLiteParameter("@name", patientName));
-            cmd2.Parameters.Add(new SQLiteParameter("@pass", patientPassword));
-            SQLiteDataReader reader2 = cmd2.ExecuteReader();
-            reader2.Read();
-            string patientID = reader2["ID"].ToString();
-            reader2.Close();
+            string patientID = getPatient();
             string date = monthCalendar1.SelectionRange.Start.ToString().Replace("/", "-");
             int temp = date.IndexOf(" ");
             date = date.Substring(0, temp);
@@ -215,17 +215,10 @@ namespace _455Project
             cmd2.CommandType = CommandType.Text;
             cmd2.Parameters.Add(new SQLiteParameter("@name", patientID));
             cmd2.Parameters.Add(new SQLiteParameter("@pass", date));
-            reader2 = cmd2.ExecuteReader();
+            SQLiteDataReader reader2 = cmd2.ExecuteReader();
             reader2.Read();
             string ID = reader2["ID"].ToString();
             reader2.Close();
-
-            cmd2 = new SQLiteCommand(connection);
-            cmd2.CommandText = "DELETE FROM Appointment where PID = @name AND ID = @pass;";
-            cmd2.CommandType = CommandType.Text;
-            cmd2.Parameters.Add(new SQLiteParameter("@name", patientID));
-            cmd2.Parameters.Add(new SQLiteParameter("@pass", ID));
-            cmd2.ExecuteNonQuery();
 
             cmd2 = new SQLiteCommand(connection);
             cmd2.CommandText = "DELETE FROM AppointmentInfo where ID = @pass;";
