@@ -64,7 +64,7 @@ namespace _455Project
             {
                 //GO TO THE STAFF VIEW
                 label3.Text = "Logged in as Staff";
-                Form3 f3 = new Form3();
+                Staff_View f3 = new Staff_View();
                 f3.Show();
                 this.Hide();
                 return;
