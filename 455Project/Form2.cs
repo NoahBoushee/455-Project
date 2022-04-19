@@ -28,6 +28,34 @@ namespace _455Project
                 comboBox1.Items.Add(i + ":00");
             }
             getStaff();
+            updateLab();
+        }
+
+        private void updateLab()
+        {
+            dataGridView1.Rows.Clear();
+            string patientID = getPatient();
+            SQLiteCommand comm = new SQLiteCommand(connection);
+            comm.CommandText = "Select LabID, Date, Result From LabPatient where PatientID = @p1;";
+            comm.CommandType = CommandType.Text;
+            comm.Parameters.Add(new SQLiteParameter("@p1", patientID));
+            SQLiteDataReader reader = comm.ExecuteReader();
+            while (reader.Read())
+            {
+                string ID = reader["LabID"].ToString();
+                comm = new SQLiteCommand("Select TestName From LabTest where ID = @p2;", connection);
+                comm.Parameters.Add(new SQLiteParameter("@p2", ID));
+                SQLiteDataReader reader2 = comm.ExecuteReader();
+                reader2.Read();
+                string name = reader2["TestName"].ToString();
+                dataGridView1.Rows.Add(new object[] {
+                    name,  // Or column name like this
+                    reader["Date"].ToString(),
+                    reader["Result"].ToString()
+                });
+                reader2.Close();
+            }
+            reader.Close();
         }
 
         private void LogOutButton_Click(object sender, EventArgs e)
@@ -108,6 +136,7 @@ namespace _455Project
 
         private string getPatient()
         {
+            string patientID = "";
             SQLiteCommand cmd2 = new SQLiteCommand(connection);
             cmd2.CommandText = "SELECT ID FROM PatientLogOn where Username = @name AND Password = @pass;";
             cmd2.CommandType = CommandType.Text;
@@ -115,7 +144,7 @@ namespace _455Project
             cmd2.Parameters.Add(new SQLiteParameter("@pass", patientPassword));
             SQLiteDataReader reader2 = cmd2.ExecuteReader();
             reader2.Read();
-            string patientID = reader2["ID"].ToString();
+            patientID = reader2["ID"].ToString();
             reader2.Close();
             return patientID;
         }
