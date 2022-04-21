@@ -29,6 +29,33 @@ namespace _455Project
             }
             getStaff();
             updateLab();
+            updateDrug();
+        }
+
+        private void updateDrug()
+        {
+            dataGridView2.Rows.Clear();
+            string patientID = getPatient();
+            SQLiteCommand comm = new SQLiteCommand(connection);
+            comm.CommandText = "Select DrugID From DrugPatient where PatientID = @p1;";
+            comm.CommandType = CommandType.Text;
+            comm.Parameters.Add(new SQLiteParameter("@p1", patientID));
+            SQLiteDataReader reader = comm.ExecuteReader();
+            while (reader.Read())
+            {
+                string ID = reader["DrugID"].ToString();
+                comm = new SQLiteCommand("Select Name, Description From Drug where Name = @p2;", connection);
+                comm.Parameters.Add(new SQLiteParameter("@p2", ID));
+                SQLiteDataReader reader2 = comm.ExecuteReader();
+                reader2.Read();
+                string name = reader2["Name"].ToString();
+                dataGridView2.Rows.Add(new object[] {
+                    name,  // Or column name like this
+                    reader2["Description"].ToString()
+                });
+                reader2.Close();
+            }
+            reader.Close();
         }
 
         private void updateLab()
