@@ -69,19 +69,26 @@ namespace _455Project
                 //GO TO THE STAFF VIEW
                 label3.Text = "Logged in as Staff";
                 Staff_View f3 = new Staff_View();
+                
                 connection.Open();
                 var staff_id_selectStatement = $"SELECT ID FROM StaffLogon WHERE Username = '{LogIn.username}'";
-                SQLiteCommand userID = new SQLiteCommand(staff_id_selectStatement, connection);
-
-                LogIn.user_id = Convert.ToInt32(userID.ExecuteScalar());
-                               
+                SQLiteCommand userStaffID = new SQLiteCommand(staff_id_selectStatement, connection);
+                LogIn.user_id = Convert.ToInt32(userStaffID.ExecuteScalar());       
                 connection.Close();
+
                 f3.Show();
                 this.Hide();
                 return;
             }
             //GO TO THE PATIENT VIEW
             label3.Text = "Logged in as Patient";
+
+            connection.Open();
+            var patient_id_selectStatement = $"SELECT ID FROM PatientLogOn WHERE Username = '{LogIn.username}'";
+            SQLiteCommand userPatientID = new SQLiteCommand(patient_id_selectStatement, connection);
+            LogIn.user_id = Convert.ToInt32(userPatientID.ExecuteScalar());
+            connection.Close();
+
             Form2 f2 = new Form2();
             f2.Show();
             this.Hide();

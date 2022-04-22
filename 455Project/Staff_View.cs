@@ -21,8 +21,6 @@ namespace _455Project
             connection.Open();
             InitializeComponent();
             showdata();
-            
-
         }
 
         private void LogOutButton_Click(object sender, EventArgs e)
@@ -59,11 +57,8 @@ namespace _455Project
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             DateTime dt = dateTimePicker1.Value.Date;
-            var date = dt.ToString("M-d-yyyy");
-                                    
+            var date = dt.ToString("M-d-yyyy");                            
             fillDataGrid(this, date);
-
-
         }
 
         public void showdata()
@@ -72,13 +67,16 @@ namespace _455Project
             var date = dt.ToString("M-d-yyyy");
             
             fillDataGrid(this, date);
-
-            label1.Text = LogIn.username;
+            
+            label1.Text = "Logged in as: " +  LogIn.username;
+            label1.Font = new Font(label1.Font.Name, 12, FontStyle.Bold);
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        
+        private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            Patient_Encouter pe = new Patient_Encouter();
+            pe.Show();
         }
     }
 }

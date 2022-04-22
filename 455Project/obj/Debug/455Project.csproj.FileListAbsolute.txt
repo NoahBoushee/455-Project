@@ -189,3 +189,4 @@ C:\Users\Stewart\Source\Repos\455-Project\staff-branch\455Project\bin\Debug\ru\M
 C:\Users\Stewart\Source\Repos\455-Project\staff-branch\455Project\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 C:\Users\Stewart\Source\Repos\455-Project\staff-branch\455Project\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
 C:\Users\Stewart\Source\Repos\455-Project\staff-branch\455Project\obj\Debug\455Project.csproj.CopyComplete
+C:\Users\Stewart\Source\Repos\455-Project\staff-branch\455Project\obj\Debug\_455Project.Patient_Encouter.resources
