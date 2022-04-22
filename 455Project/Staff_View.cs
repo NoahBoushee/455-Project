@@ -14,7 +14,7 @@ namespace _455Project
     public partial class Staff_View : Form
     {
         public SQLiteConnection connection;
-       
+        
         public Staff_View()
         {
             connection = new SQLiteConnection("Data Source=455DB.db");
@@ -22,12 +22,15 @@ namespace _455Project
             InitializeComponent();
             showdata();
             
+
         }
 
         private void LogOutButton_Click(object sender, EventArgs e)
         {
             connection.Close();
             this.Close();
+            LogIn f1 = new LogIn();
+            f1.Show();
         }
 
         private void fillDataGrid(object sender, string e)
@@ -35,7 +38,7 @@ namespace _455Project
             dataGridView1.Rows.Clear();
             dataGridView1.Refresh();
 
-            var selectStatement = $"SELECT Fname, Lname, DOB, SSN, Reason, Appt_Time FROM Patient INNER JOIN AppointmentInfo ON Patient.ID = AppointmentInfo.PID WHERE AppointmentInfo.Date = '{e}' ORDER BY Appt_Time";
+            var selectStatement = $"SELECT Fname, Lname, DOB, SSN, Reason, Appt_Time, Provider FROM Patient INNER JOIN AppointmentInfo ON Patient.ID = AppointmentInfo.PID WHERE AppointmentInfo.Date = '{e}' AND AppointmentInfo.Provider = '{LogIn.user_id}' ORDER BY Lname";
             SQLiteCommand comm = new SQLiteCommand(selectStatement, connection);
             using (SQLiteDataReader read = comm.ExecuteReader())
             {
@@ -69,7 +72,8 @@ namespace _455Project
             var date = dt.ToString("M-d-yyyy");
             
             fillDataGrid(this, date);
-            
+
+            label1.Text = LogIn.username;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

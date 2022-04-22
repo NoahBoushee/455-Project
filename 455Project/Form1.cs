@@ -28,6 +28,9 @@ namespace _455Project
 
         }
 
+        public static string username;
+        public static int user_id;
+
         private void button1_Click(object sender, EventArgs e)
         {
             if ((String.IsNullOrEmpty(textBox1.Text) || String.IsNullOrEmpty(textBox2.Text)))
@@ -58,13 +61,21 @@ namespace _455Project
             connection.Close();
             if (!(result.ToUpper() == "TRUE"))
             {
-                label3.Text = "Invalid usernam or password";
+                label3.Text = "Invalid username or password";
             }
+            username = textBox1.Text;
             if (radioButton1.Checked)
             {
                 //GO TO THE STAFF VIEW
                 label3.Text = "Logged in as Staff";
                 Staff_View f3 = new Staff_View();
+                connection.Open();
+                var staff_id_selectStatement = $"SELECT ID FROM StaffLogon WHERE Username = '{LogIn.username}'";
+                SQLiteCommand userID = new SQLiteCommand(staff_id_selectStatement, connection);
+
+                LogIn.user_id = Convert.ToInt32(userID.ExecuteScalar());
+                               
+                connection.Close();
                 f3.Show();
                 this.Hide();
                 return;
