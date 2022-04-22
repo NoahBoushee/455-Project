@@ -27,6 +27,8 @@ namespace _455Project
         {
             connection.Close();
             this.Close();
+            LogIn.username = null;
+            LogIn.user_id = -1;
             LogIn f1 = new LogIn();
             f1.Show();
         }
@@ -77,6 +79,12 @@ namespace _455Project
         {
             Patient_Encouter pe = new Patient_Encouter();
             pe.Show();
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+
         }
     }
 }
