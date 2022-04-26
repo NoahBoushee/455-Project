@@ -11,11 +11,11 @@ using System.Data.SQLite;
 
 namespace _455Project
 {
-    public partial class SAtaff_View : Form
+    public partial class Form3 : Form
     {
         public SQLiteConnection connection;
        
-       public Staff_View()
+       public Form3()
         {
             connection = new SQLiteConnection("Data Source=455DB.db");
             connection.Open();
@@ -38,19 +38,19 @@ namespace _455Project
             dataGridView1.Rows.Clear();
             dataGridView1.Refresh();
 
-            var selectStatement = $"SELECT Fname, Lname, DOB, SSN, Reason, Appt_Time, Provider FROM Patient INNER JOIN AppointmentInfo ON Patient.ID = AppointmentInfo.PID WHERE AppointmentInfo.Date = '{e}' AND AppointmentInfo.Provider = '{LogIn.user_id}' ORDER BY Lname";
+            var selectStatement = $"SELECT Fname, Lname, DOB, SSN, Reason, Time, Provider FROM Patient INNER JOIN AppointmentInfo ON Patient.ID = AppointmentInfo.PID WHERE AppointmentInfo.Date = '{e}' AND AppointmentInfo.Provider = '{LogIn.user_id}' ORDER BY Lname";
             SQLiteCommand comm = new SQLiteCommand(selectStatement, connection);
             using (SQLiteDataReader read = comm.ExecuteReader())
             {
                 while (read.Read())
                 {
                     dataGridView1.Rows.Add(new object[] {
-                    read.GetValue(read.GetOrdinal("Fname")),  // Or column name like this
+                    read.GetValue(read.GetOrdinal("Fname")),  
                     read.GetValue(read.GetOrdinal("Lname")),
                     read.GetValue(read.GetOrdinal("DOB")),
                     read.GetValue(read.GetOrdinal("SSN")),
                     read.GetValue(read.GetOrdinal("Reason")),
-                    read.GetValue(read.GetOrdinal("Appt_Time")),
+                    read.GetValue(read.GetOrdinal("Time")),
                     });
                 }
             }
@@ -59,7 +59,7 @@ namespace _455Project
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             DateTime dt = dateTimePicker1.Value.Date;
-            var date = dt.ToString("M-d-yyyy");                            
+            var date = dt.ToString("M-dd-yyyy");
             fillDataGrid(this, date);
         }
 
@@ -67,7 +67,6 @@ namespace _455Project
         {
             DateTime dt = dateTimePicker1.Value.Date;
             var date = dt.ToString("M-d-yyyy");
-            
             fillDataGrid(this, date);
             
             label1.Text = "Logged in as: " +  LogIn.username;
@@ -77,7 +76,7 @@ namespace _455Project
         
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Patient_Encouter pe = new Patient_Encouter();
+            Patient_Encounter pe = new Patient_Encounter();
             pe.Show();
         }
 

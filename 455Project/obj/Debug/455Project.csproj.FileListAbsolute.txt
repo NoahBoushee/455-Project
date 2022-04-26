@@ -40,3 +40,4 @@ C:\Users\Stewart\Source\Repos\455-Project\main\455Project\obj\Debug\455Project.c
 C:\Users\Stewart\Source\Repos\455-Project\main\455Project\obj\Debug\455Project.csproj.CopyComplete
 C:\Users\Stewart\Source\Repos\455-Project\main\455Project\obj\Debug\455Project.exe
 C:\Users\Stewart\Source\Repos\455-Project\main\455Project\obj\Debug\455Project.pdb
+C:\Users\Stewart\source\repos\455-Project\main\455Project\obj\Debug\_455Project.Patient_Encounter.resources
