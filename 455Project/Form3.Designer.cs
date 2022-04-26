@@ -1,6 +1,6 @@
 ﻿namespace _455Project
 {
-    partial class Form3
+    partial class SAtaff_View
     {
         /// <summary>
         /// Required designer variable.

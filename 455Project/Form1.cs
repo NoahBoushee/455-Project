@@ -13,6 +13,10 @@ namespace _455Project
 {
     public partial class LogIn : Form
     {
+
+        public static string username;
+        public static int user_id;
+
         public LogIn()
         {
             InitializeComponent();
@@ -61,12 +65,23 @@ namespace _455Project
                 label3.Text = "Invalid username or password";
                 return;
             }
+            // Assign username for logged in user
+            username = textBox1.Text;
+            
             connection.Close();
             if (radioButton1.Checked)
             {
                 //GO TO THE STAFF VIEW
                 label3.Text = "Logged in as Staff";
                 Form3 f3 = new Form3();
+
+                // assign user ID for staff
+                connection.Open();
+                var staff_id_selectStatement = $"SELECT ID FROM StaffLogon WHERE Username = '{LogIn.username}'";
+                SQLiteCommand userStaffID = new SQLiteCommand(staff_id_selectStatement, connection);
+                LogIn.user_id = Convert.ToInt32(userStaffID.ExecuteScalar());
+                connection.Close();
+
                 f3.Show();
                 this.Hide();
                 return;
@@ -74,6 +89,13 @@ namespace _455Project
             //GO TO THE PATIENT VIEW
             label3.Text = "Logged in as Patient";
             Form2 f2 = new Form2(textBox1.Text, textBox2.Text);
+            // assign user ID for patient
+            connection.Open();
+            var patient_id_selectStatement = $"SELECT ID FROM PatientLogOn WHERE Username = '{LogIn.username}'";
+            SQLiteCommand userPatientID = new SQLiteCommand(patient_id_selectStatement, connection);
+            LogIn.user_id = Convert.ToInt32(userPatientID.ExecuteScalar());
+            connection.Close();
+
             f2.Show();
             this.Hide();
 
