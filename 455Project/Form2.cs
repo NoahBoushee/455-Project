@@ -30,6 +30,7 @@ namespace _455Project
             getStaff();
             updateLab();
             updateDrug();
+            updateBill();
         }
 
         private void updateDrug()
@@ -55,6 +56,43 @@ namespace _455Project
                 });
                 reader2.Close();
             }
+            reader.Close();
+        }
+
+        private void updateBill()
+        {
+            label15.Text = "";
+            string patientID = getPatient();
+            SQLiteCommand comm = new SQLiteCommand(connection);
+            comm.CommandText = "Select ID From TreatmentHistory where PID = @p1;";
+            comm.CommandType = CommandType.Text;
+            comm.Parameters.Add(new SQLiteParameter("@p1", patientID));
+            SQLiteDataReader reader = comm.ExecuteReader();
+            string total_cost = "";
+            while (reader.Read())
+            {
+                string TreatmentID = reader["ID"].ToString();
+                comm = new SQLiteCommand("Select Cost From Billing where ID = @p2 AND Paid = 0;", connection);
+                comm.Parameters.Add(new SQLiteParameter("@p2", TreatmentID));
+                SQLiteDataReader reader2 = comm.ExecuteReader();
+                if (reader2.HasRows)
+                { 
+                    reader2.Read();
+                    string cost = reader2["Cost"].ToString();
+                    total_cost = total_cost + "$" + cost + "\n";
+                    reader2.Close();
+                }
+            }
+            
+            if (total_cost.Length == 0)
+            {
+                label15.Text = "None";
+            }
+            else
+            { 
+                label15.Text = total_cost;
+            }
+            
             reader.Close();
         }
 
@@ -282,6 +320,16 @@ namespace _455Project
             cmd2.Parameters.Add(new SQLiteParameter("@pass", ID));
             cmd2.ExecuteNonQuery();
             label11.Text = "Canceled successfully.";
+
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
 
         }
     }
