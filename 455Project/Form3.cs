@@ -27,7 +27,7 @@ namespace _455Project
             dataGridView1.Refresh();
 
             DateTime dt = dateTimePicker1.Value.Date;
-            string date = dt.ToString("M-d-yyyy");
+            string date = dt.ToString("d");
 
             //MessageBox.Show(user_ID.ToString());
 
