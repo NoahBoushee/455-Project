@@ -63,3 +63,25 @@ C:\Users\17013\Downloads\HW4-NelsonL\455-Attempt 2\455Project\obj\Debug\455Proje
 C:\Users\17013\Downloads\HW4-NelsonL\455-Attempt 2\455Project\obj\Debug\455Project.csproj.CopyComplete
 C:\Users\17013\Downloads\HW4-NelsonL\455-Attempt 2\455Project\obj\Debug\455Project.exe
 C:\Users\17013\Downloads\HW4-NelsonL\455-Attempt 2\455Project\obj\Debug\455Project.pdb
+C:\Users\Stewart\Source\Repos\Final_455\455Project\bin\Debug\455Project.exe.config
+C:\Users\Stewart\Source\Repos\Final_455\455Project\bin\Debug\455Project.exe
+C:\Users\Stewart\Source\Repos\Final_455\455Project\bin\Debug\455Project.pdb
+C:\Users\Stewart\Source\Repos\Final_455\455Project\bin\Debug\EntityFramework.dll
+C:\Users\Stewart\Source\Repos\Final_455\455Project\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Stewart\Source\Repos\Final_455\455Project\bin\Debug\System.Data.SQLite.dll
+C:\Users\Stewart\Source\Repos\Final_455\455Project\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Stewart\Source\Repos\Final_455\455Project\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Stewart\Source\Repos\Final_455\455Project\bin\Debug\EntityFramework.xml
+C:\Users\Stewart\Source\Repos\Final_455\455Project\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Stewart\Source\Repos\Final_455\455Project\bin\Debug\System.Data.SQLite.xml
+C:\Users\Stewart\Source\Repos\Final_455\455Project\obj\Debug\455Project.csproj.AssemblyReference.cache
+C:\Users\Stewart\Source\Repos\Final_455\455Project\obj\Debug\_455Project.LogIn.resources
+C:\Users\Stewart\Source\Repos\Final_455\455Project\obj\Debug\_455Project.Form2.resources
+C:\Users\Stewart\Source\Repos\Final_455\455Project\obj\Debug\_455Project.Form3.resources
+C:\Users\Stewart\Source\Repos\Final_455\455Project\obj\Debug\_455Project.Patient_Encounter.resources
+C:\Users\Stewart\Source\Repos\Final_455\455Project\obj\Debug\_455Project.Properties.Resources.resources
+C:\Users\Stewart\Source\Repos\Final_455\455Project\obj\Debug\455Project.csproj.GenerateResource.cache
+C:\Users\Stewart\Source\Repos\Final_455\455Project\obj\Debug\455Project.csproj.CoreCompileInputs.cache
+C:\Users\Stewart\Source\Repos\Final_455\455Project\obj\Debug\455Project.csproj.CopyComplete
+C:\Users\Stewart\Source\Repos\Final_455\455Project\obj\Debug\455Project.exe
+C:\Users\Stewart\Source\Repos\Final_455\455Project\obj\Debug\455Project.pdb

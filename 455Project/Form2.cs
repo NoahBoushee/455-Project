@@ -156,7 +156,7 @@ namespace _455Project
             }
             getStaff();
             label4.Text = "";
-            string tempDate = e.Start.ToShortDateString().Replace("/", "-");
+            string tempDate = e.Start.ToShortDateString();  //.Replace("/", "-");
             label3.Text = "Selected Date: " + tempDate;
             SQLiteCommand cmd = new SQLiteCommand(connection);
             cmd.CommandText = "SELECT Date, Time, Provider FROM AppointmentInfo;";
@@ -329,6 +329,11 @@ namespace _455Project
         }
 
         private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
         {
 
         }

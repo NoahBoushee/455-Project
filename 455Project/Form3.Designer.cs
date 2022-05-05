@@ -33,14 +33,14 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
             this.Fname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DOB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SSN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Reason = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -87,6 +87,8 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Fname,
@@ -97,8 +99,45 @@
             this.Time});
             this.dataGridView1.Location = new System.Drawing.Point(6, 93);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(743, 127);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // Fname
+            // 
+            this.Fname.HeaderText = "First Name";
+            this.Fname.Name = "Fname";
+            this.Fname.ReadOnly = true;
+            // 
+            // Lname
+            // 
+            this.Lname.HeaderText = "Last Name";
+            this.Lname.Name = "Lname";
+            this.Lname.ReadOnly = true;
+            // 
+            // DOB
+            // 
+            this.DOB.HeaderText = "DOB";
+            this.DOB.Name = "DOB";
+            this.DOB.ReadOnly = true;
+            // 
+            // SSN
+            // 
+            this.SSN.HeaderText = "SSN";
+            this.SSN.Name = "SSN";
+            this.SSN.ReadOnly = true;
+            // 
+            // Reason
+            // 
+            this.Reason.HeaderText = "Reason";
+            this.Reason.Name = "Reason";
+            this.Reason.ReadOnly = true;
+            // 
+            // Time
+            // 
+            this.Time.HeaderText = "Time";
+            this.Time.Name = "Time";
+            this.Time.ReadOnly = true;
             // 
             // tabPage2
             // 
@@ -118,36 +157,6 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "label1";
-            // 
-            // Fname
-            // 
-            this.Fname.HeaderText = "First Name";
-            this.Fname.Name = "Fname";
-            // 
-            // Lname
-            // 
-            this.Lname.HeaderText = "Last Name";
-            this.Lname.Name = "Lname";
-            // 
-            // DOB
-            // 
-            this.DOB.HeaderText = "DOB";
-            this.DOB.Name = "DOB";
-            // 
-            // SSN
-            // 
-            this.SSN.HeaderText = "SSN";
-            this.SSN.Name = "SSN";
-            // 
-            // Reason
-            // 
-            this.Reason.HeaderText = "Reason";
-            this.Reason.Name = "Reason";
-            // 
-            // Time
-            // 
-            this.Time.HeaderText = "Time";
-            this.Time.Name = "Time";
             // 
             // Form3
             // 

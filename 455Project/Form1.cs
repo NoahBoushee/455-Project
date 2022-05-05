@@ -44,16 +44,91 @@ namespace _455Project
             //cmd object to write sql
             //adapter to read db data
             SQLiteConnection connection = new SQLiteConnection("Data Source=455DB.db");
-            connection.Open();
+            //connection.Open();
             //CHECK IF data is in sql
             SQLiteCommand cmd = new SQLiteCommand(connection);
             if (radioButton1.Checked) {
                 cmd.CommandText = "SELECT COUNT(*) FROM StaffLogOn WHERE Username=@p1 AND Password=@p2;";
                 
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add(new SQLiteParameter("@p1", textBox1.Text));
+                cmd.Parameters.Add(new SQLiteParameter("@p2", textBox2.Text));
+                int count = 0;
+                connection.Open();
+                count = Convert.ToInt32(cmd.ExecuteScalar());
+                connection.Close();
+                if (count == 0)
+                {
+                    label3.Text = "Invalid username or password";
+                    return;
+                }
+                
+
+                else 
+                {
+                    // Assign username for logged in user
+                    username = textBox1.Text;
+                    //GO TO THE STAFF VIEW
+                    label3.Text = "Logged in as Staff";
+                    
+
+                    // assign user ID for staff
+                    connection.Open();
+                    string staff_id_selectStatement = $"SELECT ID FROM StaffLogon WHERE Username = '{LogIn.username}'";
+                    SQLiteCommand userStaffID = new SQLiteCommand(staff_id_selectStatement, connection);
+                    LogIn.user_id = Convert.ToInt32(userStaffID.ExecuteScalar());
+                    connection.Close();
+                    MessageBox.Show("Form 1 " + user_id.ToString());
+
+                    Form3 f3 = new Form3(user_id);
+                    f3.Show();
+                    this.Hide();
+                }
+
             }
             else {
                 cmd.CommandText = "SELECT COUNT(*) FROM PatientLogOn WHERE Username=@p1 AND Password=@p2;";
+
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add(new SQLiteParameter("@p1", textBox1.Text));
+                cmd.Parameters.Add(new SQLiteParameter("@p2", textBox2.Text));
+                int count = 0;
+                connection.Open();
+                count = Convert.ToInt32(cmd.ExecuteScalar());
+                connection.Close();
+
+                if (count == 0)
+                {
+                    label3.Text = "Invalid username or password";
+                    return;
+                }
+                
+
+                else
+                {
+                    // Assign username for logged in user
+                    username = textBox1.Text;
+                    //GO TO THE PATIENT VIEW
+                    label3.Text = "Logged in as Patient";
+                    
+                    // assign user ID for patient
+                    connection.Open();
+                    string patient_id_selectStatement = $"SELECT ID FROM PatientLogOn WHERE Username = '{LogIn.username}'";
+                    SQLiteCommand userPatientID = new SQLiteCommand(patient_id_selectStatement, connection);
+                    LogIn.user_id = Convert.ToInt32(userPatientID.ExecuteScalar());
+                    connection.Close();
+
+                    Form2 f2 = new Form2(textBox1.Text, textBox2.Text);
+                    f2.Show();
+                    this.Hide();
+                }
+
+
             }
+            
+            
+            /*
+            
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.Add(new SQLiteParameter("@p1", textBox1.Text));
             cmd.Parameters.Add(new SQLiteParameter("@p2", textBox2.Text));
@@ -99,6 +174,7 @@ namespace _455Project
             f2.Show();
             this.Hide();
 
+            */
         }
 
         private void label1_Click(object sender, EventArgs e)
