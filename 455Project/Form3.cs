@@ -8,14 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using Microsoft.Data.SqlClient;
 
 namespace _455Project
 {
     public partial class Form3 : Form
     {
+        // Connection to Azure Database
+        public Microsoft.Data.SqlClient.SqlConnection connectionString = new Microsoft.Data.SqlClient.SqlConnection(@"Data Source = csci455-emr.database.windows.net; Initial Catalog = csci455-emr; User ID = SuperUser; Password=Pword123!;Connect Timeout = 30; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         public SQLiteConnection connection;
         public static int user_ID;
-       public Form3(int user_id)
+       public Form3(int user_id, string username)
         {
             user_ID = user_id;
             connection = new SQLiteConnection("Data Source=455DB.db");
@@ -26,32 +29,7 @@ namespace _455Project
             dataGridView1.Rows.Clear();
             dataGridView1.Refresh();
 
-            DateTime dt = dateTimePicker1.Value.Date;
-            string date = dt.ToString("d");
-
-            //MessageBox.Show(user_ID.ToString());
-
-            string selectStatement = $"SELECT Fname, Lname, DOB, SSN, Reason, Time " +
-                $"FROM Patient INNER JOIN AppointmentInfo ON Patient.ID = AppointmentInfo.PID " +
-                $"WHERE AppointmentInfo.Date = '{dt}' AND AppointmentInfo.Provider = {user_id}";
-            //MessageBox.Show(selectStatement);
-            SQLiteCommand comm = new SQLiteCommand(selectStatement, connection);
-            connection.Open();
-            using (SQLiteDataReader read = comm.ExecuteReader())
-            {
-                while (read.Read())
-                {
-                    dataGridView1.Rows.Add(new object[] {
-                    read.GetValue(read.GetOrdinal("Fname")),
-                    read.GetValue(read.GetOrdinal("Lname")),
-                    read.GetValue(read.GetOrdinal("DOB")),
-                    read.GetValue(read.GetOrdinal("SSN")),
-                    read.GetValue(read.GetOrdinal("Reason")),
-                    read.GetValue(read.GetOrdinal("Time")),
-                    });
-                }
-            }
-            connection.Close();
+            
 
         }
 
