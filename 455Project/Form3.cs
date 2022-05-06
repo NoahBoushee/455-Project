@@ -52,7 +52,7 @@ namespace _455Project
             //MessageBox.Show(user_ID.ToString());
 
             string selectStatement = $"SELECT Fname, Lname, DOB, SSN, Reason, Time FROM Patients INNER JOIN AppointmentInfo ON Patients.ID = AppointmentInfo.PID WHERE AppointmentInfo.Date = '{e}' AND AppointmentInfo.Provider = {user_ID}";
-            MessageBox.Show(selectStatement);
+            //MessageBox.Show(selectStatement);
             SqlCommand comm = new SqlCommand(selectStatement, connectionString);
 
             //SQLiteCommand comm = new SQLiteCommand(selectStatement, connection);

@@ -99,7 +99,7 @@ namespace _455Project
                     LogIn.user_id = Convert.ToInt32(userStaffID.ExecuteScalar());
                     //connection.Close();
                     connectionString.Close();
-                    MessageBox.Show("Form 1 " + user_id.ToString());
+                   // MessageBox.Show("Form 1 " + user_id.ToString());
 
                     Form3 f3 = new Form3(user_id, username);
                     f3.Show();
