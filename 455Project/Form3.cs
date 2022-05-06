@@ -17,17 +17,18 @@ namespace _455Project
         // Connection to Azure Database
         public Microsoft.Data.SqlClient.SqlConnection connectionString = new Microsoft.Data.SqlClient.SqlConnection(@"Data Source = csci455-emr.database.windows.net; Initial Catalog = csci455-emr; User ID = SuperUser; Password=Pword123!;Connect Timeout = 30; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         public SQLiteConnection connection;
-        public static int user_ID;
+        private static int user_ID;
+        private static string userName;
        public Form3(int user_id, string username)
         {
             user_ID = user_id;
+            userName = username;
             connection = new SQLiteConnection("Data Source=455DB.db");
             //connection.Open();
             InitializeComponent();
             showdata();
 
-            dataGridView1.Rows.Clear();
-            dataGridView1.Refresh();
+            
 
             
 
@@ -50,11 +51,14 @@ namespace _455Project
 
             //MessageBox.Show(user_ID.ToString());
 
-            string selectStatement = $"SELECT Fname, Lname, DOB, SSN, Reason, Time FROM Patient INNER JOIN AppointmentInfo ON Patient.ID = AppointmentInfo.PID WHERE AppointmentInfo.Date = '{e}' AND AppointmentInfo.Provider = {user_ID}";
-            //MessageBox.Show(selectStatement);
-            SQLiteCommand comm = new SQLiteCommand(selectStatement, connection);
-            connection.Open();
-            using (SQLiteDataReader read = comm.ExecuteReader())
+            string selectStatement = $"SELECT Fname, Lname, DOB, SSN, Reason, Time FROM Patients INNER JOIN AppointmentInfo ON Patients.ID = AppointmentInfo.PID WHERE AppointmentInfo.Date = '{e}' AND AppointmentInfo.Provider = {user_ID}";
+            MessageBox.Show(selectStatement);
+            SqlCommand comm = new SqlCommand(selectStatement, connectionString);
+
+            //SQLiteCommand comm = new SQLiteCommand(selectStatement, connection);
+            //connection.Open();
+            connectionString.Open();
+            using (SqlDataReader read = comm.ExecuteReader()) // SQLiteDataReader read = comm.ExecuteReader())
             {
                 while (read.Read())
                 {
@@ -68,13 +72,15 @@ namespace _455Project
                     });
                 }
             }
-            connection.Close();
+            connectionString.Close();
+            //connection.Close();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             DateTime dt = dateTimePicker1.Value.Date;
             string date = dt.ToString("M-d-yyyy");
+            MessageBox.Show("Date test " + date);
             fillDataGrid(this, date);
         }
 
@@ -82,7 +88,7 @@ namespace _455Project
         {
             DateTime dt = dateTimePicker1.Value.Date;
             string date = dt.ToString("M-d-yyyy");
-            MessageBox.Show("Date test "+date);
+            //MessageBox.Show("Date test "+date);
             fillDataGrid(this, date);
             
             label1.Text = "Logged in as: " +  LogIn.username;
